@@ -6,16 +6,12 @@ public class Level : MonoBehaviour
 {
   // Start is called before the first frame update
 
-  [SerializeField] int enemiesLeft;
+  [SerializeField] int enemiesLeft = 1;
   //cached refernce
   SceneLoader sceneLoader;
   private void Start()
   {
     sceneLoader = FindObjectOfType<SceneLoader>();
-  }
-  public void CountEnemiesLeft(int num)
-  {
-    enemiesLeft = num;
   }
 
   public void EnemyDestroyed()

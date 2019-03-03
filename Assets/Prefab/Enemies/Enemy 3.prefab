@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3854015983037989963}
   - component: {fileID: 835579669683667901}
   - component: {fileID: 2216644405698642024}
+  - component: {fileID: 4240987453956699649}
+  - component: {fileID: 6326525720810804450}
   m_Layer: 9
   m_Name: Enemy 3
   m_TagString: Untagged
@@ -28,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4662992868769538729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46, y: 3.63, z: -0.044921875}
-  m_LocalScale: {x: 0.76755595, y: 0.81226796, z: 1.242}
+  m_LocalPosition: {x: -1.414, y: 2.63, z: -0.044921875}
+  m_LocalScale: {x: 3.3856385, y: 4.761807, z: 1.242}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 59e56bc9cd2774120986b93ba0c2dfa6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e624e1a997d8411ebe498d51d9dcc6d, type: 3}
   m_Color: {r: 1, g: 0.0141509175, b: 0.7439644, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a69e1acfc3164a70988779c009a0e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 700
+  health: 1000
   shotCounter: 0
   minTimeBetweenShots: 1
   maxTimeBetweenShots: 4
@@ -134,16 +136,50 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.011606038, y: -0.013090253}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.04, y: 0.84}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 0.93, y: 0.84}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.82, y: 0.84}
+  m_Size: {x: 0.2319623, y: 0.29021573}
   m_EdgeRadius: 0
+--- !u!95 &4240987453956699649
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662992868769538729}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1f80cd89290e4fb5971a4fe0d0cf6b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6326525720810804450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662992868769538729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d08c669a1be4f07ad274c089634cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusItem: {fileID: 0}
+  dropChance: 10
+  dropSpeed: 5

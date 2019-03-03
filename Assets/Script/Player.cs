@@ -8,23 +8,42 @@ public class Player : MonoBehaviour
 {
   [SerializeField] float MovementSpeed = 10f;
   [SerializeField] float padding = 1f;
-  [SerializeField] GameObject laserPrefab;
-  [SerializeField] float projectileSpeed = 10f;
-  [SerializeField] float projectileRate = 0.1f;
+
   [SerializeField] int health = 500;
   [SerializeField] float delayInSeconds = 2f;
   [SerializeField] AudioClip deathSound;
   [SerializeField] AudioClip hitSound;
-  Weapon1 weapon;
+  Weapon weapon;
+  Weapon1 weapon1;
   float xMin;
   float xMax;
   float yMin;
   float yMax;
   Coroutine firingCoroutine;
+  [SerializeField] string currentWeapon = "Basic";
   // Start is called before the first frame update
+  void Awake()
+  {
+    SetUpSingleTon();
+  }
+
+  private void SetUpSingleTon()
+  {
+    if (FindObjectsOfType(GetType()).Length > 1)
+    {
+      Destroy(gameObject);
+    }
+    else
+    {
+      DontDestroyOnLoad(gameObject);
+    }
+  }
+
+
   void Start()
   {
-    weapon = GetComponent<Weapon1>() as Weapon1;
+    weapon = GetComponent<Weapon>() as Weapon;
+    weapon1 = GetComponent<Weapon1>() as Weapon1;
     SetUpMoveBoundary();
   }
 
@@ -40,13 +59,30 @@ public class Player : MonoBehaviour
   {
     if (Input.GetButtonDown("Fire1"))
     {
-      weapon.Fire();
+      if (currentWeapon == "Basic")
+      {
+        weapon.Fire();
+      }
+      if (currentWeapon == "SpreadShot")
+      {
+        Debug.Log("SpeadShotFired");
+        weapon1.Fire();
+      }
       //stantitate a laser prefab at the players transform.position, and do not rotate
       // firingCoroutine = StartCoroutine(FireContinuously());
     }
+
     if (Input.GetButtonUp("Fire1"))
     {
-      weapon.StopFire();
+      if (currentWeapon == "Basic")
+      {
+        weapon.StopFire();
+      }
+      if (currentWeapon == "SpreadShot")
+      {
+        Debug.Log("not firing");
+        weapon1.StopFire();
+      }
     }
   }
 
@@ -71,17 +107,27 @@ public class Player : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-
-    if (!damageDealer) { return; }
-    health -= damageDealer.GetDamage();
-    FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
-    AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
-
-    if (health <= 0)
+    if (other.gameObject.tag == "EnemyFire")
     {
-      GameOver();
-      AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+      DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+
+      if (!damageDealer) { return; }
+      health -= damageDealer.GetDamage();
+      FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
+      Destroy(other);
+      if (health <= 0)
+      {
+        GameOver();
+        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+      }
+    }
+
+    if (other.gameObject.tag == "SpreadShot")
+    {
+      weapon.StopFire();
+      currentWeapon = "SpreadShot";
+      Destroy(other);
     }
   }
 

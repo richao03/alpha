@@ -32,7 +32,7 @@ public class GameStatus : MonoBehaviour
   private void Start()
   {
     scoreText.text = currentScore.ToString();
-    healthText.text = player.GetHealth().ToString();
+    healthText.text = "Health: " + player.GetHealth().ToString();
   }
   // Update is called once per frame
   void Update()
@@ -49,7 +49,7 @@ public class GameStatus : MonoBehaviour
   public void PlayerHealthChange(int hp)
   {
     currentHealth = currentHealth + hp;
-    healthText.text = currentHealth.ToString();
+    healthText.text = "Health: " + currentHealth.ToString();
   }
 
   public void ResetGame()

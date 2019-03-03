@@ -7,11 +7,14 @@ public class Enemy : MonoBehaviour
   // Start is called before the first frame update
   [SerializeField] float health = 100;
   [SerializeField] float shotCounter;
+
   [SerializeField] float minTimeBetweenShots = 0.2f;
   [SerializeField] float maxTimeBetweenShots = 2f;
   [SerializeField] GameObject projectile;
   [SerializeField] float projectileSpeed = 10f;
   [SerializeField] float durationOfExplosion = 2f;
+
+  DropItem dropItem;
 
   [SerializeField] GameObject explosionParticles;
   [SerializeField] GameObject shotsHitParticles;
@@ -19,10 +22,12 @@ public class Enemy : MonoBehaviour
   [SerializeField] AudioClip hitSound;
   [SerializeField] AudioClip shootSound;
   Level level;
+
   void Start()
   {
     shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     level = FindObjectOfType<Level>();
+    dropItem = GetComponent<DropItem>();
 
   }
 
@@ -52,20 +57,23 @@ public class Enemy : MonoBehaviour
   {
     DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
     if (!damageDealer) { return; }
-    health -= damageDealer.GetDamage();
-    GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
-    AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
-
-    Destroy(hitExplosion, 0.5f);
-    if (health <= 0)
+    if (other.gameObject.tag == "PlayerFire")
     {
-      Death();
+      health -= damageDealer.GetDamage();
+      GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
+      Destroy(other);
+      Destroy(hitExplosion, 0.5f);
+      if (health <= 0)
+      {
+        Death();
+      }
     }
   }
 
   private void Death()
   {
-    level.EnemyDestroyed();
+    dropItem.TriggerDrop();
     Destroy(gameObject);
     GameObject explosion = Instantiate(explosionParticles, transform.position, Quaternion.identity) as GameObject;
     Destroy(explosion, durationOfExplosion);

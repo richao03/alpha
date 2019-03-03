@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f01287c0416de445aa17a9bdd16059b8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ammoPrefab: {fileID: 4118281029676689872, guid: 42cc779a38891458db116e1eb3694284,
+      type: 3}
+  - shootSound: {fileID: 8300000, guid: ebc4cd1e4cbe6429d9d94df78329f143, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

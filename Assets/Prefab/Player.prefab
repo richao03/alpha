@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7220826042475464821}
   - component: {fileID: 8187915733020983330}
   - component: {fileID: 9072248055109618073}
+  - component: {fileID: 63243678}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4355401415135617669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.26, y: -5.57, z: 0}
-  m_LocalScale: {x: 0.655, y: 0.655, z: 0.655}
+  m_LocalScale: {x: 4.8608203, y: 4.4036956, z: 0.655}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d696c7ac7f114438b1635ddccc944ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89a9ed82b75b24c1492b3fd640424573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,14 +98,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 10
   padding: 0.4
-  laserPrefab: {fileID: 4118281029676689872, guid: dd1919530fb4d4f438d3bf91d1024a44,
-    type: 3}
-  projectileSpeed: 20
-  projectileRate: 0.1
   health: 200
   delayInSeconds: 2
   deathSound: {fileID: 8300000, guid: fecb227b7f56f484595e4d584e4e1ecf, type: 3}
   hitSound: {fileID: 8300000, guid: 7eef6ec7e55c4422096aaf16eff21b37, type: 3}
+  currentWeapon: Basic
 --- !u!61 &7220826042475464821
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -115,21 +113,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0063226074, y: -0.055832446}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.12, y: 0.75}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 1.12, y: 0.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.12, y: 0.75}
+  m_Size: {x: 0.18423927, y: 0.2056351}
   m_EdgeRadius: 0
 --- !u!114 &8187915733020983330
 MonoBehaviour:
@@ -163,5 +161,24 @@ MonoBehaviour:
   ammoPrefab: {fileID: 4118281029676689872, guid: 42cc779a38891458db116e1eb3694284,
     type: 3}
   projectileSpeed: 10
-  projectileRate: 0.2
+  fireRate: 0.2
   shootSound: {fileID: 8300000, guid: ebc4cd1e4cbe6429d9d94df78329f143, type: 3}
+--- !u!95 &63243678
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355401415135617669}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd1872889c8da4e9f9a5d49e51cf7486, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

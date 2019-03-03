@@ -8,17 +8,10 @@ public class EnemySpawner : MonoBehaviour
   [SerializeField] bool looping = false;
   [SerializeField] int totalEnemies = 0;
   int startingWave = 0;
-  Level level;
 
   // Start is called before the first frame update
   private IEnumerator Start()
   {
-    level = FindObjectOfType<Level>();
-    for (int i = 0; i < waveConfigs.Count; i++)
-    {
-      totalEnemies = waveConfigs.Count * waveConfigs[i].GetNumberOfEnemies();
-    }
-    level.CountEnemiesLeft(totalEnemies);
     yield return new WaitForSeconds(1);
     StartCoroutine(SpawnAllWaves());
   }
