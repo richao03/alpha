@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
       health -= damageDealer.GetDamage();
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
       AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
-      Destroy(other);
+      Destroy(other.gameObject);
       Destroy(hitExplosion, 0.5f);
       if (health <= 0)
       {

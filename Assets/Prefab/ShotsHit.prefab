@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6721101469521598360}
-  m_LocalRotation: {x: 0.0052758944, y: -0.0066211517, z: 0.0017367435, w: -0.9999626}
+  m_LocalRotation: {x: 0.005262058, y: -0.0066320975, z: -0.00003489973, w: -0.99996424}
   m_LocalPosition: {x: 2.01, y: 0.95, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 0.0036967264}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 359.397, y: 0.76000005, z: -0.20300001}
+  m_LocalEulerAnglesHint: {x: 359.397, y: 0.76000005, z: 0}
 --- !u!198 &5663135257036844511
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -46,7 +46,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -221,8 +221,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.00848974, b: 0, a: 0.3764706}
+      minColor: {r: 1, g: 0.56868994, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.9532509, b: 0, a: 0.3764706}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -666,7 +666,7 @@ ParticleSystem:
     radiusThickness: 0
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 180}
     m_Scale: {x: 1, y: 2, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0

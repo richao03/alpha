@@ -9,16 +9,20 @@ public class GameStatus : MonoBehaviour
   [SerializeField] int pointsPerEnemy = 17;
   [SerializeField] int currentScore = 0;
   [SerializeField] int currentHealth = 200;
+  [SerializeField] int currentOppHealth = 200;
   [SerializeField] TextMeshProUGUI scoreText;
   [SerializeField] TextMeshProUGUI healthText;
+  [SerializeField] TextMeshProUGUI oppPlayerHealthText;
+
   Player player;
+  OppPlayer oppPlayer;
   //   [SerializeField] bool isAutoPlayEnabled;
 
   private void Awake()
   {
     int gameStatusCount = FindObjectsOfType<GameStatus>().Length;
     player = FindObjectOfType<Player>();
-
+    oppPlayer = FindObjectOfType<OppPlayer>();
     if (gameStatusCount > 1)
     {
       Destroy(gameObject);
@@ -33,6 +37,7 @@ public class GameStatus : MonoBehaviour
   {
     scoreText.text = currentScore.ToString();
     healthText.text = "Health: " + player.GetHealth().ToString();
+    oppPlayerHealthText.text = "Boss Health: " + oppPlayer.GetOppHealth().ToString();
   }
   // Update is called once per frame
   void Update()
@@ -52,6 +57,11 @@ public class GameStatus : MonoBehaviour
     healthText.text = "Health: " + currentHealth.ToString();
   }
 
+  public void OppPlayerHealthChange(int hp)
+  {
+    currentOppHealth = currentOppHealth + hp;
+    oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
+  }
   public void ResetGame()
   {
     Destroy(gameObject);

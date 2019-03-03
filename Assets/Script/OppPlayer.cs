@@ -5,7 +5,7 @@ using UnityEngine;
 public class OppPlayer : MonoBehaviour
 {
   // Start is called before the first frame update
-  [SerializeField] float health = 100;
+  [SerializeField] int health = 100;
   [SerializeField] float shotCounter;
   [SerializeField] float speed = 10f;
 
@@ -26,7 +26,7 @@ public class OppPlayer : MonoBehaviour
   Vector3 randomMovement;
   Vector3 direction;
   private float timeLeft;
-  [SerializeField] float accelerationTime = 1f;
+  [SerializeField] float accelerationTime;
   private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
 
   void Start()
@@ -34,13 +34,22 @@ public class OppPlayer : MonoBehaviour
     shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     level = FindObjectOfType<Level>();
     rb2d = GetComponent<Rigidbody2D>();
-
+    accelerationTime = Random.Range(.6f, 2f);
   }
 
   void Update()
   {
     countDownAndShoot();
+  }
+
+  void FixedUpdate()
+  {
     randomMove();
+  }
+
+  public int GetOppHealth()
+  {
+    return health;
   }
 
   private void randomMove()
@@ -51,10 +60,9 @@ public class OppPlayer : MonoBehaviour
     {
       timeLeft += accelerationTime;
       randomMovement = Random.insideUnitCircle;
-    
+
     }
-    direction = new Vector3(randomMovement.x * speed, randomMovement.y * speed, 0.0f);
-    // transform.position = transform.position + (direction * speed * Time.deltaTime);
+    direction = new Vector3(randomMovement.x * speed * 1.5f, randomMovement.y * speed, 0.0f);
     print(direction);
     rb2d.velocity = direction * speed * Time.deltaTime;
   }
@@ -83,9 +91,10 @@ public class OppPlayer : MonoBehaviour
     if (other.gameObject.tag == "PlayerFire")
     {
       health -= damageDealer.GetDamage();
+      FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
       AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
-
+      Destroy(other.gameObject);
       Destroy(hitExplosion, 0.5f);
       if (health <= 0)
       {

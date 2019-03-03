@@ -114,8 +114,9 @@ public class Player : MonoBehaviour
       if (!damageDealer) { return; }
       health -= damageDealer.GetDamage();
       FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
+
       AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
-      Destroy(other);
+      Destroy(other.gameObject);
       if (health <= 0)
       {
         GameOver();
@@ -127,7 +128,7 @@ public class Player : MonoBehaviour
     {
       weapon.StopFire();
       currentWeapon = "SpreadShot";
-      Destroy(other);
+      Destroy(other.gameObject);
     }
   }
 
