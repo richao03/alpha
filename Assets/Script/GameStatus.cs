@@ -35,9 +35,11 @@ public class GameStatus : MonoBehaviour
   }
   private void Start()
   {
+    currentHealth = player.GetHealth();
     scoreText.text = currentScore.ToString();
-    healthText.text = "Health: " + player.GetHealth().ToString();
-    oppPlayerHealthText.text = "Boss Health: " + oppPlayer.GetOppHealth().ToString();
+    healthText.text = "Health: " + currentHealth.ToString();
+    currentOppHealth = oppPlayer.GetOppHealth();
+    oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
   }
   // Update is called once per frame
   void Update()
@@ -60,6 +62,7 @@ public class GameStatus : MonoBehaviour
   public void OppPlayerHealthChange(int hp)
   {
     currentOppHealth = currentOppHealth + hp;
+    print(currentOppHealth);
     oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
   }
   public void ResetGame()

@@ -63,7 +63,6 @@ public class OppPlayer : MonoBehaviour
 
     }
     direction = new Vector3(randomMovement.x * speed * 1.5f, randomMovement.y * speed, 0.0f);
-    print(direction);
     rb2d.velocity = direction * speed * Time.deltaTime;
   }
 
@@ -91,7 +90,7 @@ public class OppPlayer : MonoBehaviour
     if (other.gameObject.tag == "PlayerFire")
     {
       health -= damageDealer.GetDamage();
-      FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
+      FindObjectOfType<GameStatus>().OppPlayerHealthChange(-damageDealer.GetDamage());
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
       AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
       Destroy(other.gameObject);
