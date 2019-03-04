@@ -75,6 +75,7 @@
      <Compile Include="Assets\Script\WaveConfig.cs" />
      <Compile Include="Assets\Script\Weapons\Weapon.cs" />
      <Compile Include="Assets\Script\Weapons\Weapon1.cs" />
+     <Compile Include="Assets\ShopDialogue.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Space Shooter Visual Assets\Spritesheet\sheet.xml" />
