@@ -10,8 +10,10 @@ public class GameStatus : MonoBehaviour
   [SerializeField] int currentScore = 0;
   [SerializeField] int currentHealth = 200;
   [SerializeField] int currentOppHealth = 200;
+  [SerializeField] int currentCoinCount = 200;
   [SerializeField] TextMeshProUGUI scoreText;
   [SerializeField] TextMeshProUGUI healthText;
+  [SerializeField] TextMeshProUGUI coinText;
   [SerializeField] TextMeshProUGUI oppPlayerHealthText;
 
   Player player;
@@ -57,6 +59,13 @@ public class GameStatus : MonoBehaviour
   {
     currentHealth = currentHealth + hp;
     healthText.text = "Health: " + currentHealth.ToString();
+  }
+
+  public void PlayerGetCoin(int coinCount)
+  {
+    currentCoinCount = currentCoinCount + coinCount;
+    coinText.text = "Gild: " + currentCoinCount.ToString();
+
   }
 
   public void OppPlayerHealthChange(int hp)

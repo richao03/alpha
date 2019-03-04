@@ -13,8 +13,11 @@ public class Player : MonoBehaviour
   [SerializeField] float delayInSeconds = 2f;
   [SerializeField] AudioClip deathSound;
   [SerializeField] AudioClip hitSound;
+  [SerializeField] AudioClip getCoin;
+
   Weapon weapon;
   Weapon1 weapon1;
+  GameStatus gameStatus;
   float xMin;
   float xMax;
   float yMin;
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
   {
     weapon = GetComponent<Weapon>() as Weapon;
     weapon1 = GetComponent<Weapon1>() as Weapon1;
+    gameStatus = FindObjectOfType<GameStatus>();
     SetUpMoveBoundary();
   }
 
@@ -65,7 +69,6 @@ public class Player : MonoBehaviour
       }
       if (currentWeapon == "SpreadShot")
       {
-        Debug.Log("SpeadShotFired");
         weapon1.Fire();
       }
       //stantitate a laser prefab at the players transform.position, and do not rotate
@@ -80,7 +83,6 @@ public class Player : MonoBehaviour
       }
       if (currentWeapon == "SpreadShot")
       {
-        Debug.Log("not firing");
         weapon1.StopFire();
       }
     }
@@ -107,20 +109,28 @@ public class Player : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D other)
   {
+    if (other.gameObject.tag == "Coin")
+    {
+      print("touching coin");
+      AudioSource.PlayClipAtPoint(getCoin, Camera.main.transform.position, .7f);
+      gameStatus.PlayerGetCoin(10);
+      Destroy(other.gameObject);
+    }
+
     if (other.gameObject.tag == "EnemyFire")
     {
       DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
 
       if (!damageDealer) { return; }
       health -= damageDealer.GetDamage();
-      FindObjectOfType<GameStatus>().PlayerHealthChange(-damageDealer.GetDamage());
+      gameStatus.PlayerHealthChange(-damageDealer.GetDamage());
 
-      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .5f);
       Destroy(other.gameObject);
       if (health <= 0)
       {
         GameOver();
-        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .6f);
       }
     }
 

@@ -49,7 +49,7 @@ public class Soldiers : MonoBehaviour
   private void Fire()
   {
     GameObject laser = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
+    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .2f);
     laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
   }
 
@@ -63,7 +63,7 @@ public class Soldiers : MonoBehaviour
       Destroy(other.gameObject);
       health -= damageDealer.GetDamage();
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
-      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
       Destroy(hitExplosion, 0.5f);
       if (health <= 0)
       {
@@ -79,6 +79,6 @@ public class Soldiers : MonoBehaviour
     GameObject explosion = Instantiate(explosionParticles, transform.position, Quaternion.identity) as GameObject;
     Destroy(explosion, durationOfExplosion);
 
-    AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+    AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .5f);
   }
 }

@@ -13,15 +13,16 @@ public class SoldierSpawner : MonoBehaviour
   private IEnumerator Start()
   {
     yield return new WaitForSeconds(1);
-    StartCoroutine(SpawnAllWaves());
+    SpawnAllWaves();
+    InvokeRepeating("SpawnAllWaves", 1.0f, 15f);
   }
 
-  private IEnumerator SpawnAllWaves()
+  private void SpawnAllWaves()
   {
     for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
     {
       var currentWave = waveConfigs[waveIndex];
-      yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+      StartCoroutine(SpawnAllEnemiesInWave(currentWave));
     }
   }
 

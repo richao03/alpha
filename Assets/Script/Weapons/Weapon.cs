@@ -46,7 +46,7 @@ public class Weapon : MonoBehaviour
       // weapon.Fire;
       GameObject laser = Instantiate(ammoPrefab, transform.position, Quaternion.identity) as GameObject;
       laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-      AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .4f);
+      AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
       yield return new WaitForSeconds(projectileRate);
     }
 

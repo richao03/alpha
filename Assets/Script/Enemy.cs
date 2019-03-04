@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
   [SerializeField] float durationOfExplosion = 2f;
 
   DropItem dropItem;
-
   [SerializeField] GameObject explosionParticles;
   [SerializeField] GameObject shotsHitParticles;
   [SerializeField] AudioClip deathSound;
@@ -28,7 +27,6 @@ public class Enemy : MonoBehaviour
     shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     level = FindObjectOfType<Level>();
     dropItem = GetComponent<DropItem>();
-
   }
 
   void Update()
@@ -49,19 +47,20 @@ public class Enemy : MonoBehaviour
   private void Fire()
   {
     GameObject laser = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
+    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .2f);
     laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed);
   }
 
   private void OnTriggerEnter2D(Collider2D other)
   {
+    dropItem.ShootCoin();
     DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
     if (!damageDealer) { return; }
     if (other.gameObject.tag == "PlayerFire")
     {
       health -= damageDealer.GetDamage();
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
-      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .7f);
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .4f);
       Destroy(other.gameObject);
       Destroy(hitExplosion, 0.5f);
       if (health <= 0)
@@ -78,6 +77,6 @@ public class Enemy : MonoBehaviour
     GameObject explosion = Instantiate(explosionParticles, transform.position, Quaternion.identity) as GameObject;
     Destroy(explosion, durationOfExplosion);
 
-    AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+    AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .5f);
   }
 }
