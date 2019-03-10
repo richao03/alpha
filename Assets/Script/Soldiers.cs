@@ -59,7 +59,6 @@ public class Soldiers : MonoBehaviour
     if (!damageDealer) { return; }
     if (other.gameObject.tag == "EnemyFire")
     {
-      Debug.Log(other);
       Destroy(other.gameObject);
       health -= damageDealer.GetDamage();
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;

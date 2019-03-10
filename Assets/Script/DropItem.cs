@@ -22,7 +22,6 @@ public class DropItem : MonoBehaviour
   public void TriggerDrop()
   {
     randomNum = Random.Range(1, 100);
-    Debug.Log(randomNum % dropChance);
 
     if (randomNum % dropChance == 0)
     {

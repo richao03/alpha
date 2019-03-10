@@ -68,10 +68,17 @@ public class GameStatus : MonoBehaviour
 
   }
 
+
+  public void PlayerGiveCoin(int coinCount)
+  {
+    currentCoinCount = currentCoinCount - coinCount;
+    coinText.text = "Gild: " + currentCoinCount.ToString();
+
+  }
+
   public void OppPlayerHealthChange(int hp)
   {
     currentOppHealth = currentOppHealth + hp;
-    print(currentOppHealth);
     oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
   }
   public void ResetGame()

@@ -54,7 +54,6 @@ public class OppPlayer : MonoBehaviour
 
   private void randomMove()
   {
-    Debug.Log("started moving");
     timeLeft -= Time.deltaTime;
     if (timeLeft <= 0)
     {
@@ -94,6 +93,19 @@ public class OppPlayer : MonoBehaviour
       FindObjectOfType<GameStatus>().OppPlayerHealthChange(-damageDealer.GetDamage());
       GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
       Destroy(other.gameObject);
+      Destroy(hitExplosion, 0.5f);
+      if (health <= 0)
+      {
+        Death();
+      }
+    }
+
+    if (other.gameObject.tag == "Impale")
+    {
+      AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, .8f);
+      health -= damageDealer.GetDamage();
+      FindObjectOfType<GameStatus>().OppPlayerHealthChange(-damageDealer.GetDamage());
+      GameObject hitExplosion = Instantiate(shotsHitParticles, transform.position, Quaternion.identity) as GameObject;
       Destroy(hitExplosion, 0.5f);
       if (health <= 0)
       {

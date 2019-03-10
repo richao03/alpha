@@ -14,9 +14,14 @@ public class Player : MonoBehaviour
   [SerializeField] AudioClip deathSound;
   [SerializeField] AudioClip hitSound;
   [SerializeField] AudioClip getCoin;
+  [SerializeField] float fireRate = 0.5F;
+
+  private float nextFire = 0.0F;
 
   Weapon weapon;
-  Weapon1 weapon1;
+  SpreadShot spreadShot;
+  SpreadShot1 spreadShot1;
+  Impale impale;
   GameStatus gameStatus;
   float xMin;
   float xMax;
@@ -25,28 +30,31 @@ public class Player : MonoBehaviour
   Coroutine firingCoroutine;
   [SerializeField] string currentWeapon = "Basic";
   // Start is called before the first frame update
-  void Awake()
-  {
-    SetUpSingleTon();
-  }
+  // void Awake()
+  // {
+  //   SetUpSingleTon();
+  // }
 
-  private void SetUpSingleTon()
-  {
-    if (FindObjectsOfType(GetType()).Length > 1)
-    {
-      Destroy(gameObject);
-    }
-    else
-    {
-      DontDestroyOnLoad(gameObject);
-    }
-  }
+  // private void SetUpSingleTon()
+  // {
+  //   if (FindObjectsOfType(GetType()).Length > 1)
+  //   {
+  //     Destroy(gameObject);
+  //   }
+  //   else
+  //   {
+  //     DontDestroyOnLoad(gameObject);
+  //   }
+  // }
 
 
   void Start()
   {
     weapon = GetComponent<Weapon>() as Weapon;
-    weapon1 = GetComponent<Weapon1>() as Weapon1;
+    spreadShot = GetComponent<SpreadShot>() as SpreadShot;
+    spreadShot1 = GetComponent<SpreadShot1>() as SpreadShot1;
+    impale = GetComponent<Impale>() as Impale;
+
     gameStatus = FindObjectOfType<GameStatus>();
     SetUpMoveBoundary();
   }
@@ -56,34 +64,34 @@ public class Player : MonoBehaviour
   void Update()
   {
     move();
+
     fire();
+
   }
 
   private void fire()
   {
-    if (Input.GetButtonDown("Fire1"))
+    if (Input.GetButton("Fire1"))
     {
-      if (currentWeapon == "Basic")
+      if (Time.time > nextFire)
       {
-        weapon.Fire();
-      }
-      if (currentWeapon == "SpreadShot")
-      {
-        weapon1.Fire();
-      }
-      //stantitate a laser prefab at the players transform.position, and do not rotate
-      // firingCoroutine = StartCoroutine(FireContinuously());
-    }
-
-    if (Input.GetButtonUp("Fire1"))
-    {
-      if (currentWeapon == "Basic")
-      {
-        weapon.StopFire();
-      }
-      if (currentWeapon == "SpreadShot")
-      {
-        weapon1.StopFire();
+        nextFire = Time.time + fireRate;
+        if (currentWeapon == "Basic")
+        {
+          weapon.Fire();
+        }
+        if (currentWeapon == "SpreadShot")
+        {
+          spreadShot.Fire();
+        }
+        if (currentWeapon == "SpreadShot1")
+        {
+          spreadShot1.Fire();
+        }
+        if (currentWeapon == "Impale")
+        {
+          impale.Fire();
+        }
       }
     }
   }
@@ -107,11 +115,36 @@ public class Player : MonoBehaviour
     transform.position = new Vector2(newXPos, newYPos);
   }
 
+  public void ItemLevelUp(string item)
+  {
+    if (item == "SpreadShot")
+    {
+      if (currentWeapon == "SpreadShot")
+      {
+        currentWeapon = "SpreadShot1";
+      }
+      else
+      {
+        currentWeapon = "SpreadShot";
+      }
+    }
+    if (item == "Impale")
+    {
+      if (currentWeapon == "Impale")
+      {
+        currentWeapon = "Impale1";
+      }
+      else
+      {
+        currentWeapon = "Impale";
+      }
+    }
+  }
+
   private void OnTriggerEnter2D(Collider2D other)
   {
     if (other.gameObject.tag == "Coin")
     {
-      print("touching coin");
       AudioSource.PlayClipAtPoint(getCoin, Camera.main.transform.position, .7f);
       gameStatus.PlayerGetCoin(10);
       Destroy(other.gameObject);
@@ -134,10 +167,22 @@ public class Player : MonoBehaviour
       }
     }
 
-    if (other.gameObject.tag == "SpreadShot")
+    if (other.gameObject.tag == "SpreadShotItem")
     {
-      weapon.StopFire();
-      currentWeapon = "SpreadShot";
+      // weapon.StopFire();
+      if (currentWeapon != "SpreadShot1")
+      {
+        currentWeapon = "SpreadShot";
+      }
+      Destroy(other.gameObject);
+    }
+    if (other.gameObject.tag == "Impale")
+    {
+      // weapon.StopFire();
+      if (currentWeapon != "Impale1")
+      {
+        currentWeapon = "Impale";
+      }
       Destroy(other.gameObject);
     }
   }

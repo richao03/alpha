@@ -9,12 +9,6 @@ public class EnemyPath : MonoBehaviour
   List<Transform> waypoints;
   int waypointIndex = 0;
 
-  void Start()
-  {
-    waypoints = waveConfig.GetWaypoints();
-    transform.position = waypoints[waypointIndex].transform.position;
-
-  }
 
   // Update is called once per frame
   void Update()
@@ -25,16 +19,17 @@ public class EnemyPath : MonoBehaviour
   public void SetWaveConfig(WaveConfig waveConfig)
   {
     this.waveConfig = waveConfig;
+    waypoints = waveConfig.GetWaypoints();
+    transform.position = waypoints[waypointIndex].transform.position;
+
   }
 
   private void move()
   {
-
-    if (waypointIndex <= waypoints.Count - 1)
+    if (waypoints != null && waypointIndex <= (waypoints.Count - 1))
     {
       var targetPosition = waypoints[waypointIndex].transform.position;
       var movement = waveConfig.GetMoveSpeed() * Time.deltaTime;
-
       transform.position = Vector3.MoveTowards(transform.position, targetPosition, movement);
       if (transform.position == targetPosition)
       {
@@ -43,7 +38,7 @@ public class EnemyPath : MonoBehaviour
     }
     else
     {
-      waypointIndex = 0;
+      waypointIndex = 1;
     }
   }
 }

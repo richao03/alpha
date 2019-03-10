@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class Weapon1 : MonoBehaviour
+public class SpreadShot : MonoBehaviour
 {
   [SerializeField] GameObject ammoPrefab;
   [SerializeField] int projectileSpeed;
@@ -12,6 +11,7 @@ public class Weapon1 : MonoBehaviour
   [SerializeField] AudioClip shootSound;
   Coroutine firingCoroutine;
   float lastShot = 0.0f;  // Start is called before the first frame update
+  bool isFiring;
   void Start()
   {
 
@@ -19,36 +19,23 @@ public class Weapon1 : MonoBehaviour
 
   public void Fire()
   {
-    if (Time.time > fireRate + lastShot)
-    {
-      firingCoroutine = StartCoroutine(FireContinuously());
-    }
+
+    CreateBullet(-1f);
+    CreateBullet(1f);
+
+    // GameObject laser = Instantiate(ammoPrefab, transform.position, Quaternion.identity) as GameObject;
+    // laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
 
   }
 
-  public void StopFire()
+
+
+  public float GetFireRate()
   {
-    StopCoroutine(firingCoroutine);
+    return fireRate;
   }
 
-
-  IEnumerator FireContinuously()
-  {
-    while (true)
-    {
-      // weapon.Fire;   CreateBullet(-30f);
-      CreateBullet(-2f);
-      CreateBullet(0f);
-      CreateBullet(2f);
-
-      // GameObject laser = Instantiate(ammoPrefab, transform.position, Quaternion.identity) as GameObject;
-      // laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-      AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
-      yield return new WaitForSeconds(fireRate);
-      lastShot = Time.time;
-    }
-
-  }
   private void CreateBullet(float angleOffset = 0f)
   {
 

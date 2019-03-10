@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8106477380628302988}
   - component: {fileID: 2466029662792066208}
   - component: {fileID: 7252382984859397565}
-  - component: {fileID: 9151181175263920089}
-  m_Layer: 10
-  m_Name: laserRed08
-  m_TagString: PlayerFire
+  - component: {fileID: 8336390289935876936}
+  m_Layer: 11
+  m_Name: SpreadShotItem
+  m_TagString: SpreadShotItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4118281029676689872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0196, y: 0.0686, z: 0}
-  m_LocalScale: {x: 3.263832, y: 4.359858, z: 1}
+  m_LocalPosition: {x: -1.28, y: -0.13, z: 0}
+  m_LocalScale: {x: 10.64662, y: 13.061046, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 95406b6737b66479a80d172766f8bac5, type: 3}
-  m_Color: {r: 0.5731785, g: 0.990566, b: 0.5093005, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.69407177, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,7 +119,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0000000020873905, y: -0.0036478306}
   m_Size: {x: 0.05429567, y: 0.20261775}
   m_Direction: 0
---- !u!114 &9151181175263920089
+--- !u!114 &8336390289935876936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4118281029676689872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72528a1101d5e4586bb2679e3b74855b, type: 3}
+  m_Script: {fileID: 11500000, guid: 593e747035f9e4d9ea1ac6dadeaf0607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  spinSpeed: 360

@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
   [SerializeField] GameObject ammoPrefab;
   [SerializeField] int projectileSpeed;
   [SerializeField] float projectileRate = .2f;
+  [SerializeField] float fireRate = 1.2f;
   [SerializeField] AudioClip shootSound;
   Coroutine firingCoroutine;
   bool isFiring;
@@ -20,36 +21,16 @@ public class Weapon : MonoBehaviour
 
   public void Fire()
   {
-    if (isFiring == false)
-    {
-      isFiring = true;
-      firingCoroutine = StartCoroutine(FireContinuously());
-    }
-
+    GameObject laser = Instantiate(ammoPrefab, transform.position, Quaternion.identity) as GameObject;
+    laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+    AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
   }
 
-  public void StopFire()
+
+
+  public float GetFireRate()
   {
-    if (isFiring)
-    {
-      StopCoroutine(firingCoroutine);
-      isFiring = false;
-
-    }
-
-  }
-
-  IEnumerator FireContinuously()
-  {
-    while (true)
-    {
-      // weapon.Fire;
-      GameObject laser = Instantiate(ammoPrefab, transform.position, Quaternion.identity) as GameObject;
-      laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-      AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .7f);
-      yield return new WaitForSeconds(projectileRate);
-    }
-
+    return fireRate;
   }
   // Update is called once per frame
   void Update()

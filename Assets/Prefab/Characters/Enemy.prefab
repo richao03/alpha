@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5122297982019545434}
   - component: {fileID: 116250811}
   - component: {fileID: 6275969448541429678}
+  - component: {fileID: 1382811878670179652}
   m_Layer: 13
   m_Name: Enemy
   m_TagString: Untagged
@@ -175,12 +176,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4662992868769538729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3d08c669a1be4f07ad274c089634cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bonusItem: {fileID: 4118281029676689872, guid: 48d80037bd2734838b1a7192c83b935d,
+    type: 3}
+  dropChance: 10
+  dropSpeed: 5
+  coinSprite: {fileID: 4675174444233663037, guid: ddf4350fe7bb24d3a8f218d793aaa4a2,
+    type: 3}
+  coinSound: {fileID: 8300000, guid: 58b8be596ac864561baf763ba179aeba, type: 3}
+--- !u!114 &1382811878670179652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662992868769538729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d08c669a1be4f07ad274c089634cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusItem: {fileID: 4118281029676689872, guid: 9f9b8e3c4cc72470fb70d309315f253a,
     type: 3}
   dropChance: 1
   dropSpeed: 5

@@ -8,6 +8,10 @@ TagManager:
   - SpreadShot
   - PlayerFire
   - Coin
+  - Indestructable
+  - Impale
+  - ImpaleItem
+  - SpreadShotItem
   layers:
   - Default
   - TransparentFX
