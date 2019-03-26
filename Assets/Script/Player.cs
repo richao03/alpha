@@ -8,14 +8,14 @@ public class Player : MonoBehaviour
 {
   [SerializeField] float MovementSpeed = 10f;
   [SerializeField] float padding = 1f;
-
+  [SerializeField] GameObject deathAnimation;
   [SerializeField] int health = 500;
   [SerializeField] float delayInSeconds = 2f;
   [SerializeField] AudioClip deathSound;
   [SerializeField] AudioClip hitSound;
   [SerializeField] AudioClip getCoin;
-  [SerializeField] float fireRate = 0.5F;
-
+  [SerializeField] float fireRate = 0.2F;
+  GameObject explosion;
   private float nextFire = 0.0F;
 
   Weapon weapon;
@@ -27,25 +27,29 @@ public class Player : MonoBehaviour
   float xMax;
   float yMin;
   float yMax;
+  Camera gameCamera;
   Coroutine firingCoroutine;
+  private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
+  bool levelComplete = false;
   [SerializeField] string currentWeapon = "Basic";
   // Start is called before the first frame update
-  // void Awake()
-  // {
-  //   SetUpSingleTon();
-  // }
+  
+  void Awake()
+  {
+    SetUpSingleTon();
+  }
 
-  // private void SetUpSingleTon()
-  // {
-  //   if (FindObjectsOfType(GetType()).Length > 1)
-  //   {
-  //     Destroy(gameObject);
-  //   }
-  //   else
-  //   {
-  //     DontDestroyOnLoad(gameObject);
-  //   }
-  // }
+  private void SetUpSingleTon()
+  {
+    if (FindObjectsOfType(GetType()).Length > 1)
+    {
+      Destroy(gameObject);
+    }
+    else
+    {
+      DontDestroyOnLoad(gameObject);
+    }
+  }
 
 
   void Start()
@@ -54,6 +58,8 @@ public class Player : MonoBehaviour
     spreadShot = GetComponent<SpreadShot>() as SpreadShot;
     spreadShot1 = GetComponent<SpreadShot1>() as SpreadShot1;
     impale = GetComponent<Impale>() as Impale;
+    gameCamera = Camera.main;
+    rb2d = GetComponent<Rigidbody2D>();
 
     gameStatus = FindObjectOfType<GameStatus>();
     SetUpMoveBoundary();
@@ -63,10 +69,15 @@ public class Player : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    move();
-
-    fire();
-
+    if (levelComplete)
+    {
+      CompleteLevel();
+    }
+    else
+    {
+      move();
+      fire();
+    }
   }
 
   private void fire()
@@ -99,7 +110,6 @@ public class Player : MonoBehaviour
 
   private void SetUpMoveBoundary()
   {
-    Camera gameCamera = Camera.main;
     xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
     xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
     yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
@@ -113,6 +123,23 @@ public class Player : MonoBehaviour
     var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
     var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
     transform.position = new Vector2(newXPos, newYPos);
+  }
+
+  public void LevelComplete()
+  {
+    levelComplete = true;
+  }
+  public void CompleteLevel()
+  {
+    if (transform.position.x != -.5f)
+    {
+      transform.position = Vector3.MoveTowards(transform.position, new Vector2(-.5f, transform.position.y), MovementSpeed * Time.deltaTime);
+    }
+    else
+    {
+      transform.position = Vector3.MoveTowards(transform.position, new Vector2(transform.position.x, 10), MovementSpeed * Time.deltaTime);
+
+    }
   }
 
   public void ItemLevelUp(string item)
@@ -139,6 +166,10 @@ public class Player : MonoBehaviour
         currentWeapon = "Impale";
       }
     }
+    if (item == "Health1")
+    {
+      health = 1000;
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D other)
@@ -153,7 +184,7 @@ public class Player : MonoBehaviour
     if (other.gameObject.tag == "EnemyFire")
     {
       DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-
+      gameCamera.GetComponent<ScreenShake>().TriggerShake(.1f);
       if (!damageDealer) { return; }
       health -= damageDealer.GetDamage();
       gameStatus.PlayerHealthChange(-damageDealer.GetDamage());
@@ -187,23 +218,26 @@ public class Player : MonoBehaviour
     }
   }
 
-  public int GetHealth()
+  public float GetHealth()
   {
     return health;
   }
 
   void GameOver()
   {
+    gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    explosion = Instantiate(deathAnimation, transform.position, Quaternion.identity) as GameObject;
     Debug.Log("game over");
     StartCoroutine(WaitAndLoad());
   }
 
   IEnumerator WaitAndLoad()
   {
-    Debug.Log("hello");
+    yield return new WaitForSeconds(.5f);
+    Destroy(explosion);
     yield return new WaitForSeconds(2);
     Destroy(gameObject);
-
     Debug.Log("whats up");
     SceneManager.LoadScene("GameOver");
   }

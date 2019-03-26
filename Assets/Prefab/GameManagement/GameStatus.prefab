@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9031506743804975874}
   - component: {fileID: 8180698096737816709}
+  - component: {fileID: 1277132611141509818}
   m_Layer: 0
   m_Name: GameStatus
   m_TagString: Untagged
@@ -52,3 +53,15 @@ MonoBehaviour:
   healthText: {fileID: 0}
   coinText: {fileID: 0}
   oppPlayerHealthText: {fileID: 0}
+--- !u!114 &1277132611141509818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474589281550038736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f775e6e5e4843b1a28f1438c8c0534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

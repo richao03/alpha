@@ -14,8 +14,7 @@ public class OppPlayer : MonoBehaviour
   [SerializeField] GameObject projectile;
   [SerializeField] float projectileSpeed = 10f;
   [SerializeField] float durationOfExplosion = 2f;
-
-  DropItem dropItem;
+  [SerializeField] GameObject deathAnimation;
 
   [SerializeField] GameObject explosionParticles;
   [SerializeField] GameObject shotsHitParticles;
@@ -23,6 +22,8 @@ public class OppPlayer : MonoBehaviour
   [SerializeField] AudioClip hitSound;
   [SerializeField] AudioClip shootSound;
   Level level;
+  GameObject explosion;
+  Player player;
   Vector3 randomMovement;
   Vector3 direction;
   private float timeLeft;
@@ -31,6 +32,8 @@ public class OppPlayer : MonoBehaviour
 
   void Start()
   {
+    player = FindObjectOfType<Player>();
+
     shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     level = FindObjectOfType<Level>();
     rb2d = GetComponent<Rigidbody2D>();
@@ -117,11 +120,21 @@ public class OppPlayer : MonoBehaviour
   private void Death()
   {
     level.EnemyDestroyed();
-    dropItem.TriggerDrop();
-    Destroy(gameObject);
-    GameObject explosion = Instantiate(explosionParticles, transform.position, Quaternion.identity) as GameObject;
-    Destroy(explosion, durationOfExplosion);
-
+    gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    explosion = Instantiate(deathAnimation, transform.position, Quaternion.identity) as GameObject;
     AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, .7f);
+    StartCoroutine(WaitAndLoad());
+  }
+
+
+  IEnumerator WaitAndLoad()
+  {
+    player.LevelComplete();
+    yield return new WaitForSeconds(.5f);
+    Destroy(explosion);
+    yield return new WaitForSeconds(2);
+    Destroy(gameObject);
+
   }
 }

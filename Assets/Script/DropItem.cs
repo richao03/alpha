@@ -36,7 +36,7 @@ public class DropItem : MonoBehaviour
   {
     randomNum = Random.Range(1, 100);
 
-    if (randomNum % 2 == 0)
+    if (randomNum % 4 == 0)
     {
       StartCoroutine("DropCoin");
     }

@@ -12,6 +12,8 @@ TagManager:
   - Impale
   - ImpaleItem
   - SpreadShotItem
+  - Enemy
+  - Soldier
   layers:
   - Default
   - TransparentFX

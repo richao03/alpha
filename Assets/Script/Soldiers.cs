@@ -31,22 +31,7 @@ public class Soldiers : MonoBehaviour
 
   }
 
-  void Update()
-  {
-    countDownAndShoot();
-  }
-
-  private void countDownAndShoot()
-  {
-    shotCounter -= Time.deltaTime;
-    if (shotCounter <= 0f)
-    {
-      Fire();
-      shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
-    }
-  }
-
-  private void Fire()
+  public void Fire()
   {
     GameObject laser = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
     AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, .2f);

@@ -47,3 +47,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a63675e933cb4701add3d3c1b90a2b2, type: 2}
   looping: 1
   totalEnemies: 0
+  timeBetweenLoop: 17

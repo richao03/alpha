@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7376652f4768d4adf82c2dec25babcaa, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.7590599, a: 1}
+  m_Color: {r: 0, g: 0.60312414, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,11 +100,13 @@ MonoBehaviour:
   shotCounter: 0
   speed: 15
   minTimeBetweenShots: 0.2
-  maxTimeBetweenShots: 2
+  maxTimeBetweenShots: 0.7
   projectile: {fileID: 8761918404777889127, guid: 607f3d4bb7e8e4a9e85ec47a33ed2790,
     type: 3}
   projectileSpeed: 10
   durationOfExplosion: 2
+  deathAnimation: {fileID: 1306810901508643212, guid: 84d46ef8417d64733a0fd64e5bbf5548,
+    type: 3}
   explosionParticles: {fileID: 6721101469521598360, guid: a9a573c6ee7fe400f8fdfc45bff71d48,
     type: 3}
   shotsHitParticles: {fileID: 6721101469521598360, guid: 728486f8a630f47638f6a06245082ee4,

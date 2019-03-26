@@ -8,7 +8,7 @@ public class GameStatus : MonoBehaviour
   // Start is called before the first frame update
   [SerializeField] int pointsPerEnemy = 17;
   [SerializeField] int currentScore = 0;
-  [SerializeField] int currentHealth = 200;
+  [SerializeField] float currentHealth = 200;
   [SerializeField] int currentOppHealth = 200;
   [SerializeField] int currentCoinCount = 200;
   [SerializeField] TextMeshProUGUI scoreText;
@@ -39,9 +39,7 @@ public class GameStatus : MonoBehaviour
   {
     currentHealth = player.GetHealth();
     scoreText.text = currentScore.ToString();
-    healthText.text = "Health: " + currentHealth.ToString();
     currentOppHealth = oppPlayer.GetOppHealth();
-    oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
   }
   // Update is called once per frame
   void Update()
@@ -58,7 +56,6 @@ public class GameStatus : MonoBehaviour
   public void PlayerHealthChange(int hp)
   {
     currentHealth = currentHealth + hp;
-    healthText.text = "Health: " + currentHealth.ToString();
   }
 
   public void PlayerGetCoin(int coinCount)
@@ -75,11 +72,17 @@ public class GameStatus : MonoBehaviour
     coinText.text = "Gild: " + currentCoinCount.ToString();
 
   }
-
+  public float GetPlayerHealth()
+  {
+    return currentHealth;
+  }
+  public float GetOppPlayerHealth()
+  {
+    return currentOppHealth;
+  }
   public void OppPlayerHealthChange(int hp)
   {
     currentOppHealth = currentOppHealth + hp;
-    oppPlayerHealthText.text = "Boss Health: " + currentOppHealth.ToString();
   }
   public void ResetGame()
   {
